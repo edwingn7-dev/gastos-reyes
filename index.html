@@ -1,0 +1,20 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gastos Reyes (Sync)</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#111111">
+<link rel="stylesheet" href="styles.css"></head><body>
+<header><div class="header-wrap"><div class="logo"></div><h1 class="title">Gastos Reyes — Profesional</h1>
+<div class="chip"><span>Equipo</span><input id="grupo" placeholder="REYES2025"><button id="saveGrupo" class="btn">Guardar</button></div>
+<button id="installBtn" class="btn" style="display:none">Agregar a inicio</button></div></header>
+<div class="container"><div class="grid"><div class="card"><h3>Nuevo gasto</h3>
+<div class="row"><div><label>Trabajo / Proyecto</label><input id="job" placeholder="Ej: Cocina Sra. López"></div>
+<div><label>Monto (USD)</label><input id="amount" type="number" inputmode="decimal" step="0.01" placeholder="0.00"></div></div>
+<label>Descripción</label><textarea id="desc" placeholder="Material / detalles de la compra"></textarea>
+<label>Foto (opcional)</label><input id="photo" type="file" accept="image/*" capture="environment">
+<div class="actions"><button id="saveBtn" class="btn primary">Guardar</button><button id="clearBtn" class="btn">Limpiar</button><button id="forceSync" class="btn">↻ Sincronizar</button></div>
+<div class="footer" id="status"></div></div>
+<div class="card"><div class="tabs"><button class="tab active" data-range="day">Día</button><button class="tab" data-range="week">Semana</button><button class="tab" data-range="month">Mes</button><button class="tab" data-range="all">Todos</button><input id="search" placeholder="Buscar…" style="flex:1"></div>
+<div class="statrow" id="summary"></div><div class="list" id="list"></div><div class="footer notice" id="cfgNotice" style="display:none">⚠ Falta configurar Firebase en <b>config.js</b>.</div></div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="config.js"></script><script src="sync.js"></script><script src="sw-register.js"></script></body></html>

@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}let dP,btn=document.getElementById('installBtn');addEventListener('beforeinstallprompt',e=>{e.preventDefault();dP=e;if(btn)btn.style.display='inline-block';});btn?.addEventListener('click',async()=>{dP?.prompt();await dP?.userChoice;btn.style.display='none';dP=null;});
