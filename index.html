@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gastos Reyes</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <style>
+    body{font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#f7f7f7;color:#111;}
+    header{position:sticky;top:0;background:#000;padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;}
+    header h1{font-size:18px;margin:0;}
+    .container{padding:16px;max-width:920px;margin:0 auto;}
+    .card{background:#fff;border-radius:12px;padding:14px 14px;margin-bottom:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);}
+    label{display:block;font-weight:600;margin-top:8px;margin-bottom:6px;}
+    input,select,textarea,button{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:16px;box-sizing:border-box;background:#fff;}
+    textarea{min-height:72px;resize:vertical;}
+    .row{display:grid;grid-template-columns:1fr;gap:12px;}
+    @media(min-width:640px){.row{grid-template-columns:1fr 1fr;}}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;}
+    .btn{background:#111;color:#fff;border:none;cursor:pointer}
+    .btn.secondary{background:#eee;color:#111;border:1px solid #ddd;}
+    .tabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+    .tab{padding:8px 12px;border:1px solid #ddd;border-radius:999px;background:#fff;cursor:pointer}
+    .tab.active{background:#111;color:#fff;border-color:#111}
+    .list{display:grid;gap:12px}
+    .item{border:1px solid #eee;border-radius:12px;padding:12px;background:#fff}
+    .item h4{margin:0 0 4px 0}
+    .item small{color:#666}
+    .thumb{width:100%;max-height:240px;object-fit:contain;border:1px solid #eee;border-radius:8px;margin-top:6px}
+    .summary{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border-radius:999px;background:#eee;border:1px solid #ddd}
+    .footer-space{height:40px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gastos Reyes</h1>
+    <button class="tab" id="installBtn" style="display:none">Agregar a inicio</button>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h3>Nuevo gasto</h3>
+      <div class="row">
+        <div>
+          <label>Trabajo/Proyecto</label>
+          <input id="job" placeholder="Ej: Cocina Sra. López">
+        </div>
+        <div>
+          <label>Monto ($)</label>
+          <input id="amount" type="number" inputmode="decimal" step="0.01" placeholder="Ej: 125.50">
+        </div>
+      </div>
+      <label>Descripción del material/compra</label>
+      <textarea id="desc" placeholder="Ej: 6 láminas 1/2”, 2 bolsas de pasta, cinta malla"></textarea>
+      <label>Foto de la factura / material (opcional)</label>
+      <input id="photo" type="file" accept="image/*" capture="environment">
+      <div class="actions" style="margin-top:12px">
+        <button id="saveBtn" class="btn">Guardar</button>
+        <button id="clearBtn" class="btn secondary">Limpiar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button data-range="day" class="tab active">Día</button>
+        <button data-range="week" class="tab">Semana</button>
+        <button data-range="month" class="tab">Mes</button>
+        <button data-range="all" class="tab">Todos</button>
+        <input id="search" placeholder="Buscar por trabajo o texto...">
+      </div>
+      <div class="summary" id="summary"></div>
+      <div class="list" id="list"></div>
+      <div class="actions" style="margin-top:12px">
+        <button id="exportCsv" class="btn secondary">Exportar CSV</button>
+        <button id="exportJson" class="btn secondary">Respaldar (.json)</button>
+        <input type="file" id="importJson" accept="application/json" style="display:none">
+        <button id="importBtn" class="btn secondary">Restaurar (.json)</button>
+      </div>
+    </div>
+    <div class="footer-space"></div>
+  </div>
+
+  <script src="pwa-db.js"></script>
+  <script src="main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+    });
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
