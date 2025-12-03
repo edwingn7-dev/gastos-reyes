@@ -1,23 +1,18 @@
-try {
-  const firebaseConfig = {
-    apiKey: "AIzaSyBmTlYqdWHnCAkwQFEKmzMElDB0HEU1l14",
-    authDomain: "gastos-reyes.firebaseapp.com",
-    projectId: "gastos-reyes",
-    storageBucket: "gastos-reyes.firebasestorage.app",
-    messagingSenderId: "752119688558",
-    appId: "1:752119688558:web:225619eaad4e156bb9e0cc"
-  };
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Inicializa con SDK "compat" (ya lo cargamos en index.html)
-  firebase.initializeApp(firebaseConfig);
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBmTiYqdWHnCAkwQFEKmzMElDB0Hsbpc7I",
+  authDomain: "gastos-reyes.firebaseapp.com",
+  projectId: "gastos-reyes",
+  storageBucket: "gastos-reyes.firebasestorage.app",
+  messagingSenderId: "752119688558",
+  appId: "1:752119688558:web:225619eaad4e156c21657f"
+};
 
-  // Modo offline (si falla, seguimos igual)
-  firebase.firestore().enablePersistence().catch(() => {});
-
-  // Exponemos db y storage para sync.js
-  window.db = firebase.firestore();
-  window.storage = firebase.storage();
-} catch (e) {
-  document.getElementById('cfgNotice')?.style?.setProperty('display','block');
-  console.warn('Falta config Firebase o SDK no cargó', e);
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// update
