@@ -17,4 +17,17 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
-<script src="config.js"></script><script src="sync.js"></script><script src="sw-register.js"></script></body></html>
+<script src="config.js"></script><script src="sync.js"></script><script src="sw-register.js"></script>
+  <!-- BOTÓN PARA EXPORTAR PDF -->
+<button id="exportPdfBtn"
+        style="position:fixed; right:14px; bottom:14px; padding:10px 14px; z-index:9999;">
+    Exportar PDF (mes actual)
+</button>
+
+<!-- Librería PDF -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+<!-- Código PDF -->
+<script src="export.js"></script>
+</body>
+</html>
